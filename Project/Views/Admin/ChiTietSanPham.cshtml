@@ -1,0 +1,175 @@
+﻿@model Project.Models.SANPHAM
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .detail-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .product-part-1,
+    .product-part-2,
+    .product-part-3 {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-part-1 {
+        flex: 1;
+        gap: 15px;
+    }
+
+        .product-part-1 img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+    .product-part-2 {
+        flex: 1;
+        gap: 15px;
+    }
+
+    .product-details dt {
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .product-details dd {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .action-links {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+    }
+/*
+        .action-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+            background-color:#808080;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .action-links .btn-sua:hover {
+                color: #000000;
+                background-color: #c2ccfb;
+            }
+
+            .action-links .btn-back:hover {
+                color: #000;
+                background-color: #e0e0e0;
+            }*/
+
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+</style>
+
+<div class="wrap" style="padding: 2% 10% 5% 10%">
+    <h1 style="text-align:center; padding: 10px 0 10px 0">CHI TIẾT SẢN PHẨM</h1>
+    <div class="detail-container">
+        <!-- Product Part 1: Image -->
+        <div class="product-part-1">
+            <img src="@Url.Content("~/images/"+ Model.AnhBia)" alt="Product Image" />
+        </div>
+
+        <!-- Product Part 2: Name, Size, Price, Quantity, Type -->
+        <div class="product-part-2">
+            <dl class="dl-horizontal">
+                <dt>Tên giày:</dt>
+                <dd>@Html.DisplayFor(model => model.TenGiay)</dd>
+
+                <dt>Size giày:</dt>
+                <dd>@Html.DisplayFor(model => model.Size)</dd>
+
+                <dt>Giá bán:</dt>
+                <dd>@String.Format("{0:0,0}", Model.GiaBan) VNĐ</dd>
+
+                <dt>Số Lượng tồn:</dt>
+                <dd>@Html.DisplayFor(model => model.SoLuongTon)</dd>
+
+                <dt>Loại Giày:</dt>
+                <dd>@Html.DisplayFor(model => model.LOAIGIAY.TenLoai)</dd>
+            </dl>
+        </div>
+
+        <!-- Product Part 3: Remaining Details -->
+        <div class="product-part-3">
+            <dl class="dl-horizontal">
+                <dt>Thương Hiệu:</dt>
+                <dd>@Html.DisplayFor(model => model.THUONGHIEU.TenThuongHieu)</dd>
+
+                <dt>Trạng Thái:</dt>
+                <dd>@Html.DisplayFor(model => model.TrangThai)</dd>
+
+                <dt>Nhà Cung Cấp:</dt>
+                <dd>@Html.DisplayFor(model => model.NHACUNGCAP.TenNCC)</dd>
+
+                <dt>Thời Gian Bảo Hành:</dt>
+                <dd>@Html.DisplayFor(model => model.ThoiGianBaoHanh) Tháng</dd>
+
+                <dt>Ngày cập nhập:</dt>
+                <dd>@String.Format("{0:dd/MM/yyyy}", Model.NgayCapNhat)</dd>
+            </dl>
+
+            <div class="">
+              
+            </div>
+            <div class="button-group action-links">
+                <a class="btn-primary btn-sua" href="@Url.Action("SuaSanPham", new { id = Model.MaGiay })">Sửa</a>
+                <a class=" btn-secondary btn-back" href="@Url.Action("SanPham")">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>

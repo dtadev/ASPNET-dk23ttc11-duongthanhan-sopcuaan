@@ -1,0 +1,107 @@
+﻿@model Project.Models.YKIENKHACHHANG
+
+@{
+    ViewBag.Title = "Xoaykienkhachhang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .delete-container {
+        padding: 2% 10% 5% 10%;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+        .delete-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .delete-container h3 {
+            color: #555;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .delete-container dl {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .delete-container dt {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .delete-container dd {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .delete-container .form-actions {
+            text-align: center;
+        }
+
+        .delete-container .btn-delete {
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .delete-container .btn-delete:hover {
+                background-color: #c0392b;
+            }
+
+        .delete-container .btn-back {
+            margin-left: 15px;
+            font-size: 18px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+            .delete-container .btn-back:hover {
+                color: #2980b9;
+                text-decoration: underline;
+            }
+</style>
+
+<div class="delete-container">
+    <h2>XÁC NHẬN XÓA Ý KIẾN</h2>
+    <h3>Quyết định xóa ý kiến này?</h3>
+
+    <dl>
+        <dt>Email:</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>Họ tên:</dt>
+        <dd>@Html.DisplayFor(model => model.HoTen)</dd>
+
+        @*<dt>Ngày gửi:</dt>
+        <dd>@Html.DisplayFor(model => model.NgayGui)</dd>*@
+
+        <dt>Nội dung:</dt>
+        <dd>@Html.DisplayFor(model => model.NoiDung)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input type="submit" value="Xóa" class="btn-delete" />
+            <a href="@Url.Action("ykienkhachhang")" class="btn-back">Trở về trang ý kiến</a>
+        </div>
+    }
+</div>

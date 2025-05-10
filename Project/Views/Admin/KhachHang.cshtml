@@ -1,0 +1,146 @@
+﻿@using Project.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Project.Models.KHACHHANG>
+
+@{
+    ViewBag.Title = "KhachHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+ 
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        font-size: 16px;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+    
+    .status-btn {
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+    }
+
+        .status-btn.active {
+            background-color: #28a745;
+        }
+
+        .status-btn.inactive {
+            background-color: #dc3545;
+        }
+
+
+    .title {
+        text-align: center;
+        color: #333333;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    
+    .pagination {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+        .pagination a, .pagination span {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .pagination .active {
+            font-weight: bold;
+            color: #000;
+        }
+
+
+    .btn-ykkh a{
+       padding: 10px;
+       background-color: #f7d975;
+       color: #000;
+    }
+
+    .btn-ykkh a:hover {
+        background-color: #fff152;
+        color: #000;
+    }
+
+</style>
+
+<script>
+    $(function () {
+    
+        $(".AnHienClick").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdateTrangThaiKhachHang", { "id": _AD }, function (data) {
+                $('#img_AnHien-' + _AD).attr('src', data);
+            });
+        });
+    });
+</script>
+
+<div class="wrap" style="padding: 2% 10% 5% 10%;">
+    <h2 class="title">QUẢN LÝ THÔNG TIN KHÁCH HÀNG</h2>
+       
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Tên tài khoản</th>
+            <th>Họ tên</th>
+            <th>Trạng thái</th>
+            <th>Thông tin</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaKH)</td>
+                <td>@Html.DisplayFor(modelItem => item.TaiKhoanKH)</td>
+                <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                <td>
+                    @if (item.TrangThai == true)
+                    {
+                        <a href="#" class="AnHienClick status-btn active" data-id="@item.MaKH">
+                            <img src="~/images/Admin/Icons/icon_Hien.png" id="img_AnHien-@item.MaKH" title="Hiện" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="AnHienClick status-btn inactive" data-id="@item.MaKH">
+                            <img src="~/images/Admin/Icons/icon_An.png" id="img_AnHien-@item.MaKH" title="Ẩn" />
+                        </a>
+                    }
+                </td>
+                @*<td>
+                    @Html.ActionLink("Chi tiết", "ChiTietKhachHang", new { id = item.MaKH }, new { @class = "status-btn active" })
+                </td>*@
+                <td class="text-center">
+                    <a href="@Url.Action("OrderDetail", "Admin", new { id = item.MaKH })">
+                        <img src="~/images/Admin/Icons/icon_eye.png" class="detail-icon" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="pagination">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @*@Html.PagedListPager(Model, page => Url.Action("KhachHang", new { page }))*@
+    </div>
+</div>

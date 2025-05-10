@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Login</title>
+
+    <link href="~/Content/font-face.css" rel="stylesheet" media="all">
+    <link href="~/Content/theme.css" rel="stylesheet" media="all">
+    <link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="~/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="~/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-wrap {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+/*        .login-illustration {
+            flex: 1 1 50%;
+            background-color: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background-image: url('/path/to/illustration.svg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }*/
+
+        .login-form-container {
+            flex: 1 1 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-logo h1 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            padding: 0 15px;
+            background-color: #fff;
+            align-items: center;
+        }
+
+        .input-group-text {
+            background-color: transparent;
+            border: none;
+            color: #888;
+            font-size: 18px;
+        }
+
+        .form-control {
+            border: none;
+            box-shadow: none;
+            padding: 10px 0;
+            background: transparent;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            transition: opacity 0.3s ease;
+        }
+
+            .btn-login:hover {
+                opacity: 0.9;
+                background: linear-gradient(to right, #2575fc, #6a11cb);
+            }
+
+        .form-links a {
+            color: #2575fc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .form-links a:hover {
+                text-decoration: underline;
+            }
+
+        .terms-privacy-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .terms-privacy-links small a {
+                color: #888;
+                text-decoration: none;
+                font-size: 12px;
+                margin: 0 5px;
+            }
+
+                .terms-privacy-links small a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="login-wrap">
+        <div class="login-illustration"></div>
+        <div class="login-form-container">
+            <div class="login-logo">
+                <h1>Login as Admin User</h1>
+            </div>
+            <form method="post">
+                <div class="form-group">
+                    <label for="txt_Username">Account</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" id="txt_Username" name="txt_Username" class="form-control" placeholder="johndoe@xyz.com" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txt_Password">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="txt_Password" name="txt_Password" class="form-control" placeholder="********" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">LOGIN</button>
+            </form>
+            @*<div class="form-links">
+                <a href="#">Forget your password?</a><br>
+                <a href="#">Get help signing in.</a>
+            </div>*@
+            <div class="terms-privacy-links">
+                <small>
+                    <a href="#">Terms of use.</a>
+                    <a href="#">Privacy policy</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

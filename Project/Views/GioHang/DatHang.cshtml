@@ -1,0 +1,195 @@
+﻿@using Project.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<style>
+ 
+
+    .customer-info {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        max-width: 600px;
+        border-collapse: collapse;
+    }
+
+        .customer-info td,
+        .customer-info th {
+            padding: 8px;
+        }
+
+        .customer-info .submit-row {
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+    .submit-btn {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .customer-info tr td:first-child {
+    }
+
+    .customer-info tr:not(:last-child) td {
+        border-bottom: 1px solid #e0e0e0;
+    }
+</style>
+
+<div class="order-container" style="position: relative">
+    <table class="order-table">
+        <thead>
+            <tr>
+                <th>Mã Giày</th>
+                <th>Tên Giày</th>
+                <th>Size</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá Bán</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.iMaGiay</td>
+                    <td>@item.sTenGiay</td>
+                    <td>@item.iSize</td>
+                    <td><img src="~/images/@item.sAnhBia" alt="@item.sTenGiay" class="product-image" /></td>
+                    <td>@item.iSoLuong</td>
+                    <td>@String.Format("{0:0,0}", item.dGiaBan) VND</td>
+                    <td>@String.Format("{0:0,0}", item.dThanhTien) VND</td>
+                </tr>
+            }
+            <tr class="summary-row">
+                <td colspan="4">Số lượng giày: @ViewBag.TongSoLuong</td>
+                <td colspan="3">Tổng tiền: @String.Format("{0:0,0}", ViewBag.TongTien) VND</td>
+            </tr>
+            <tr class="back-row">
+                <td colspan="7">
+                    @Html.ActionLink("TRỞ VỀ GIỎ HÀNG", "Giohang", "GioHang", null, new { @class = "back-link" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>THÔNG TIN ĐẶT HÀNG</h2>
+    @{
+        KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+    }
+    <div style="display: block; text-align: center ">
+        <div style="display: block; align-content: center ">
+            <table class="customer-info" style="">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    <tr><td>Họ và tên khách hàng:</td><td>@kh.HoTen</td></tr>
+                    <tr><td>Địa chỉ:</td><td>@kh.DiaChiKH</td></tr>
+                    <tr><td>Điện thoại:</td><td>@kh.DienThoaiKH</td></tr>
+                    <tr><td>Ngày đặt:</td><td>@DateTime.Now.ToShortDateString()</td></tr>
+                    <tr><td>Ngày giao dự kiến:</td><td>@DateTime.Now.AddDays(7).ToShortDateString()</td></tr>
+                    <tr><td colspan="2" class="submit-row"><input type="submit" value="ĐỒNG Ý ĐẶT HÀNG" class="submit-btn" /></td></tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+
+    .order-container {
+        width: 90%;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+    }
+
+        .order-table th, .order-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .order-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+    .product-image {
+        width: 100px;
+        border-radius: 8px;
+    }
+
+    .summary-row {
+        font-weight: bold;
+        color: #d9534f;
+    }
+
+    .back-row {
+        background-color: #f0f0f0;
+    }
+
+    .back-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+    .customer-info td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .customer-info .submit-row {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .submit-btn {
+        background-color: #000;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
+
+    h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+</style>

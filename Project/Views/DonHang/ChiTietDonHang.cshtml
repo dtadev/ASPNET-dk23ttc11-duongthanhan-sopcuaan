@@ -1,0 +1,153 @@
+﻿@using Project.Models;
+@model List<CTDH>
+
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .order-details-container {
+        max-width: 1200px;
+        margin: 50px auto 150px auto;
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+        font-size: 32px;
+        color: #333;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    h4 {
+        font-size: 20px;
+        color: #333;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    th {
+        background-color: #333;
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    td img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .total {
+        font-weight: bold;
+        font-size: 18px;
+        text-align: right;
+        padding-right: 20px;
+        background-color: #f4f4f4;
+    }
+
+    .back-button {
+        background-color: #ddd;
+        color: black;
+        padding: 12px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .action-column {
+        background-color: #ddd;
+        color: black;
+        padding: 12px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        text-align: center;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .back-button:hover {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
+
+<div class="order-details-container ">
+    <h2>
+        Chi tiết đơn đặt hàng của bạn. 
+    </h2>
+    <h4>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    Mã đơn hàng: #@item.iOrderID
+                </td>
+            </tr>
+        }
+    </h4>
+
+   
+    <table>
+        <tr>
+            <th>Mã Giày</th>
+            <th>Tên Giày</th>
+            <th>Ảnh</th>
+            <th>Size</th>
+            <th>Số Lượng</th>
+            <th>Giá lúc bán</th>
+            <th>Thành Tiền</th>
+            <th>Chi tiết sản phẩm</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.iMaGiay</td>
+                <td>@item.iTenGIay</td>
+                <td><img src="~/images/@item.iAnhBia" /></td>
+                <td>@item.iSize</td>
+                <td>@item.iSoLuong</td>
+                <td>@String.Format("{0:##,#}", item.iGiaLucBan) VNĐ</td>
+                <td>@String.Format("{0:##,#}", item.iThanhTien) VNĐ</td>
+                @*<td class="action-column"><a href="@Url.Action("ChiTietSanPham", "Home", new {id = item.iMaGiay})">Xem</a></td>*@
+                <td> <a href="@Url.Action("ChiTietSanPham", "Home", new { id = item.iMaGiay })" class="back-button">Xem</a></td>
+
+            </tr>
+        }
+        <tr>
+            <td colspan="8" class="total">Tổng tiền: @String.Format("{0:0,0}", @ViewBag.TongTien) VNĐ</td>
+        </tr>
+    </table>
+    <a href="@Url.Action("LichSuDonHang", "DonHang")" class="back-button">Trở về</a>
+</div>

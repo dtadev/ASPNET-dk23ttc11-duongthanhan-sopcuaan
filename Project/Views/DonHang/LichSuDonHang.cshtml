@@ -1,0 +1,137 @@
+﻿@using Project.Models
+@model List<DONHANG>
+
+@{
+    ViewBag.Title = "OrderHistory";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        font-size: 2.5em;
+        color: #333;
+        text-align: center;
+        margin: 50px 0;
+        font-weight: 700;
+    }
+
+    table {
+        width: 90%;
+        margin: 0 auto 50px;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 20px;
+        text-align: center;
+        font-size: 1em;
+        color: #555;
+    }
+
+    th {
+        background-color: #333;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    td {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:hover {
+        background-color: #f4f4f4;
+        cursor: pointer;
+    }
+
+    .status-delivered {
+        color: #28a745;
+        font-weight: 600;
+    }
+
+    .status-shipping {
+        color: #f87171;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        color: #f59e0b;
+        font-weight: 600;
+    }
+
+    .button {
+        background-color: #ddd;
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 1.1em;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .button:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+    .total-amount {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .action-column {
+        text-align: center;
+    }
+</style>
+
+<h2>Lịch sử đặt hàng</h2>
+
+<table>
+    <tr>
+        <th>Mã Đơn Hàng</th>
+        <th>Ngày Đặt</th>
+        <th>Ngày Giao Dự Kiến</th>
+        <th>Tình Trạng Đơn Hàng</th>
+        <th>Tổng Tiền</th>
+        <th class="action-column">Hành Động</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaDonHang</td>
+            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayDat)</td>
+            <td>@String.Format("{0:dd/MM/yyyy}", item.NgayGiao)</td>
+            @if ((bool)item.TinhTrangGiaoHang)
+            {
+                <td class="status-delivered"><i class="fa fa-check-square-o" aria-hidden="true"></i> Đã Giao hàng</td>
+            }
+            else if (item.NgayGiao > DateTime.Now)
+            {
+                <td class="status-pending"><i class="fa fa-clock" aria-hidden="true"></i> Chờ Giao</td>
+            }
+            else
+            {
+                <td class="status-shipping"><i class="fa fa-truck" aria-hidden="true"></i> Đang Vận Chuyển</td>
+            }
+            <td class="total-amount">@String.Format("{0:##,#}", item.TongTien) VNĐ</td>
+            <td class="action-column">
+                <a href="@Url.Action("ChiTietDonHang", "DonHang", new { maDonHang = item.MaDonHang, tongTien = item.TongTien })" class="button">Chi Tiết Đơn Hàng</a>
+            </td>
+        </tr>
+    }
+</table>
+

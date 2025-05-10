@@ -1,0 +1,128 @@
+﻿@using Project.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Project.Models.YKIENKHACHHANG>
+
+@{
+    ViewBag.Title = "Ykienkhachhang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    /* Định dạng chung */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrap {
+        padding: 2% 10%;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2C3E50;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #2C3E50;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    td {
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+
+    tr:nth-child(even) td {
+        background-color: #f4f7fa;
+    }
+
+    tr:hover td {
+        background-color: #e9ecef;
+    }
+
+    .btn-delete {
+        background-color: #e74c3c;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+    .MenuTrang {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="wrap">
+    <h2>QUẢN LÝ Ý KIẾN KHÁCH HÀNG</h2>
+
+    <table class="table">
+        <tr>
+            <th>Email khách hàng</th>
+            <th>Họ tên khách hàng</th>
+            <th>Ngày gửi</th>
+            <th>Nội dung</th>
+            <th>Hành động</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayGui)</td>
+                <td style="text-align: left; padding-left: 20px;">
+                    @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                    <a href="@Url.Action("Xoaykienkhachhang", "Admin", new { id = item.MAYKIEN })" class="btn-delete">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="MenuTrang">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Ykienkhachhang", new { page }))
+    </div>
+</div>

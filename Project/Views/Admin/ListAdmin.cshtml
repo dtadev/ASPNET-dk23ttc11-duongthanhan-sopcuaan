@@ -1,0 +1,402 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Project.Models.PHANQUYEN>
+@{
+    ViewBag.Title = "ListAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+
+table.center {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #d0d0d0;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table.center th, table.center td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+table.center th {
+    background-color: #333131;
+    color: white;
+    font-weight: bold;
+}
+
+table.center tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.center tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+.Top {
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 12px;
+    padding: 8px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+.Bottom {
+    padding: 5px;
+}
+
+
+.Bottom a {
+    display: inline-block;
+    margin: 2px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.Bottom a:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+}
+
+.MenuTrang {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.MenuTrang a {
+    font-size: 16px;
+    color: white;
+    background-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.MenuTrang a:hover {
+    background-color: #218838;
+}
+
+
+.MenuTrang .btn {
+    padding: 8px 15px;
+    margin: 10px;
+}
+
+.MenuTrang {
+    font-size: 14px;
+    color: #333;
+}
+
+.MenuTrang .pagedlist {
+    display: inline-block;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.MenuTrang .pagedlist a {
+    padding: 6px 12px;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0 4px;
+    transition: background-color 0.3s ease;
+}
+
+.MenuTrang .pagedlist a:hover {
+    background-color: #ddd;
+}
+
+.Avatar {
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+</style>
+
+<script>
+    $(function () {
+        // quản lý trạng thái của admin
+        $(".AnHienClick").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdateTrangThai", { "id": _AD },
+                function (data) {
+                    $('#img_AnHien-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý quyền admin nhà cung cấp
+        $(".PQ_NhaSanXuat").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_NhaSanXuat", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_NhaSanXuat-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý quyền admin sản phẩm
+        $(".PQ_SanPham").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_SanPham", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_SanPham-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý quyền admin khách hàng
+        $(".PQ_KhachHang").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_KhachHang", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_KhachHang-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý quyền admin đơn hàng
+        $(".PQ_DonHang").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_DonHang", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_DonHang-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý quyền admin
+        $(".PQ_QuanTriAdmin").click(function () {
+            var _AD = $(this).attr("data-id");
+            // Thực hiện xử lý Ajax: gọi hàm Update phân quyền để xử lý
+            $.post("/Admin/UpdatePQ_QuanTriAdmin", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_QuanTriAdmin-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý thương hiệu
+        $(".PQ_QuanTriThuongHieu").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_ThuongHieu", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_QuanTriThuongHieu-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý loại giày
+        $(".PQ_QuanTriLoaiGiay").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_LoaiGiay", { "id": _AD },
+                function (data) {
+                    $('#img_PQ_QuanTriLoaiGiay-' + _AD).attr('src', data);
+                });
+        });
+        //quản lý ý kiến khách hàng
+        $(".PQ_QuanTriYKienKhachHang").click(function () {
+            var _AD = $(this).attr("data-id");
+            $.post("/Admin/UpdatePQ_YKienKhachHang", { "id": _AD },
+                function (data) {
+                    $('#img_UpdatePQ_YKienKhachHang-' + _AD).attr('src', data);
+                });
+        });
+    });
+</script>
+<div class="wrap" style="padding-top: 2%; padding-left: 10%; padding-right: 10%; padding-bottom: 5%">
+    <h2 style="text-align: center; ">QUẢN LÝ THÔNG TIN NHÂN VIÊN</h2>
+    @using (Html.BeginForm())
+    {
+        <br />
+        <table border="1" style="width: 984px; border: 1px solid #d0d0d0; border-collapse: collapse;" class="center">
+            <tr style="text-align: center">
+                <th>Mã Admin</th>
+                <th>Tài khoản</th>
+                <th>Phân quyền quản trị</th>
+                <th>Trạng thái</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align: center">@item.MaQL</td>
+                    <td style="text-align: center">
+                        <img src="@item.QUANLY.Avatar" class="Avatar" style="width:100px;height:100px" />
+                        <br />
+                        <label>@item.QUANLY.TaiKhoanQL</label>
+                    </td>
+                    <!--Cột phân quyền Admin-->
+                    <td style="text-align: center">
+                        <table style="margin: 0 auto">
+                            <tr>
+                                <td class="Top">Nhà cung cấp</td>
+                                <td class="Top">Sản phẩm</td>
+                                <td class="Top">Khách hàng</td>
+                                <td class="Top">Đơn hàng</td>
+                                <td class="Top">Quản trị Admin</td>
+                                <td class="Top">Thương hiệu</td>
+                                <td class="Top">Loại giày</td>
+                                <td class="Top">Ý kiến khách hàng</td>
+                            </tr>
+                            <tr>
+                                <td class="Bottom">
+                                    @if (item.QL_NhaCungCap == true)
+                                    {
+                                        <a href="#" class="PQ_NhaSanXuat" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_NhaSanXuat-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_NhaSanXuat" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_NhaSanXuat-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_SanPham == true)
+                                    {
+                                        <a href="#" class="PQ_SanPham" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_SanPham-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_SanPham" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_SanPham-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_KhachHang == true)
+                                    {
+                                        <a href="#" class="PQ_KhachHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_KhachHang-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_KhachHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_KhachHang-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_DonHang == true)
+                                    {
+                                        <a href="#" class="PQ_DonHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_DonHang-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_DonHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_DonHang-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_Admin == true)
+                                    {
+                                        <a href="#" class="PQ_QuanTriAdmin" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_QuanTriAdmin-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_QuanTriAdmin" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_QuanTriAdmin-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_ThuongHieu == true)
+                                    {
+                                        <a href="#" class="PQ_QuanTriThuongHieu" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_QuanTriThuongHieu-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_QuanTriThuongHieu" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_QuanTriThuongHieu-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_LoaiGiay == true)
+                                    {
+                                        <a href="#" class="PQ_QuanTriLoaiGiay" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_PQ_QuanTriLoaiGiay-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_QuanTriLoaiGiay" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_PQ_QuanTriLoaiGiay-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                                <td class="Bottom">
+                                    @if (item.QL_YKienKhachHang == true)
+                                    {
+                                        <a href="#" class="PQ_QuanTriYKienKhachHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/accept.png" id="img_UpdatePQ_YKienKhachHang-@item.MaQL" title="Có" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="PQ_QuanTriYKienKhachHang" data-id="@item.MaQL">
+                                            <img src="~/images/Admin/Icons/block.png" id="img_UpdatePQ_YKienKhachHang-@item.MaQL" title="Không" />
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!--End cột phân quyền Admin-->
+                    <td style="text-align: center">
+                        @if (item.QUANLY.TrangThai == true)
+                        {
+                            <a href="#" class="AnHienClick" data-id="@item.MaQL">
+                                <img src="~/images/Admin/Icons/icon_Hien.png" id="img_AnHien-@item.MaQL" title="Hiện" />
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="AnHienClick" data-id="@item.MaQL">
+                                <img src="~/images/Admin/Icons/icon_An.png" id="img_AnHien-@item.MaQL" title="Ẩn" />
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    @*  @Html.PagedListPager(Model, Page => Url.Action("ListAdmin", new { Page = Page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)*@
+    <br />
+    <div class="MenuTrang" style=" text-align:center">
+        <br />
+        <div>
+            <a class="btn btn-primary" href="/Admin/CreateAdmin/" role="button">Thêm quản trị viên</a>
+        </div>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListAdmin", new { page }))
+    </div>
+</div>

@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "CreateAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    /* Container chính */
+    .admin-form-container {
+        width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+    }
+
+        .admin-form-container h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+    /* Phong cách bảng */
+    table.admin-table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+        table.admin-table td {
+            padding: 15px 10px;
+            vertical-align: middle;
+        }
+
+    /* Phong cách input */
+    .textCtrl, .number_ne {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+
+    .number_ne {
+        width: 100%;
+        font-family: Calibri, 'Trebuchet MS', Verdana, Geneva, Arial, Helvetica, sans-serif;
+        background-color: #FFF;
+    }
+
+    /* Phong cách hình đại diện */
+    .avatar-preview {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 3px solid #c7b89e;
+        margin-bottom: 20px;
+    }
+
+    /* Phong cách nút */
+    .action-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .action-buttons input[type="submit"],
+        .action-buttons input[type="reset"] {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .action-buttons input[type="submit"]:hover,
+            .action-buttons input[type="reset"]:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+
+    /* Phong cách checkbox */
+    .permissions-table th {
+        font-weight: normal;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .permissions-table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+</style>
+
+@using (Html.BeginForm("CreateAdmin", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="admin-form-container">
+        <h2>THÊM NHÂN VIÊN</h2>
+
+        <table class="admin-table">
+            <tr>
+                <td>Tên Đăng nhập:</td>
+                <td><input type="text" id="txt_Username" name="txt_Username" class="textCtrl" required maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>Mật khẩu:</td>
+                <td><input type="password" id="txt_Password" name="txt_Password" class="textCtrl" required /></td>
+            </tr>
+            <tr>
+                <td>Nhập lại mật khẩu:</td>
+                <td><input type="password" id="txt_NhapLaiPass" name="txt_NhapLaiPass" class="textCtrl" required /></td>
+            </tr>
+            <tr>
+                <td>Hình đại diện:</td>
+                <td>
+                    <img src="~/images/Upload/avatars.jpg" class="avatar-preview" />
+                    <input type="file" id="FileUpload" name="FileUpload" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" id="txt_Email" name="txt_Email" class="textCtrl" placeholder="ex: admin@gmail.com" required /></td>
+            </tr>
+            <tr>
+                <td>Họ tên:</td>
+                <td><input type="text" id="txt_HoTen" name="txt_HoTen" class="textCtrl" required maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>Điện thoại:</td>
+                <td><input type="text" id="txt_DienThoai" name="txt_DienThoai" class="number_ne" required maxlength="10" title="Vui lòng nhập số điện thoại đúng định dạng 10 số!" /></td>
+            </tr>
+        </table>
+
+        <h3>Phân quyền quản trị:</h3>
+        <table class="permissions-table">
+            <tr>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen1" checked /> Quản lý Admin</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen2" checked /> Quản lý nhà cung cấp</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen3" checked /> Quản lý sản phẩm</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen4" checked /> Quản lý thương hiệu</label></th>
+            </tr>
+            <tr>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen5" checked /> Quản lý loại giày</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen6" checked /> Quản lý đơn hàng</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen7" checked /> Quản lý khách hàng</label></th>
+                <th><label><input type="checkbox" name="ckb_PhanQuyen8" checked /> Quản lý ý kiến khách hàng</label></th>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <input type="reset" value="Nhập lại" />
+            <input type="submit" value="Xác nhận" />
+        </div>
+    </div>
+}

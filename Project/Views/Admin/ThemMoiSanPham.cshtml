@@ -1,0 +1,138 @@
+﻿@model Project.Models.SANPHAM
+
+@{
+    ViewBag.Title = "ThemMoiSanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+        .form-container h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-container .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-container .form-control, .form-container select, .form-container input[type="file"], .form-container input[type="date"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .form-container .btn-submit {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+            .form-container .btn-submit:hover {
+                background-color: #0056b3;
+            }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .back-link {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+</style>
+
+<div class="wrap" style="padding: 2% 10% 5% 10%">
+    <div class="form-container">
+        <h2>THÊM MỚI SẢN PHẨM</h2>
+        @using (Html.BeginForm("ThemMoiSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                Tên Giày:
+                @Html.EditorFor(model => model.TenGiay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenGiay, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                Size:
+                @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                Ảnh sản phẩm:
+                <input type="file" name="fileUpload" />
+                @ViewBag.ThongBao
+            </div>
+            <div class="form-group">
+                Giá bán:
+                @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+               Thương hiệu giày:
+                @Html.DropDownList("MaThuongHieu", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                Tình trạng:
+                @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+               Nhà cung cấp:
+                @Html.DropDownList("MaNCC", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                Loại giày:
+                @Html.DropDownList("MaLoai", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                Thời gian bảo hàng (nếu có):
+                @Html.EditorFor(model => model.ThoiGianBaoHanh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ThoiGianBaoHanh, "", new { @class = "text-danger" })
+            </div>
+            @*<div class="form-group">
+                Ngày nhập hàng:
+                <input type="date" name="NgayCapNhat" class="form-control" />
+                @Html.ValidationMessageFor(model => model.NgayCapNhat, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="form-group">
+                Số lượng:
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-footer">
+                <button type="submit" class="btn-submit">THÊM MỚI</button>
+                <a href="@Url.Action("SanPham", "Admin")" class="back-link">Trở về trang sản phẩm</a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Project.Models.DONHANG>
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/AdminStyles.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $(".DaGiaoClick").click(function () {
+            var _MaDH = $(this).attr("data-id");
+            $.post("/Admin/UpdateOrder", { "id": _MaDH },
+                function (data) {
+                    $('#img_AnHien-' + _MaDH).attr('src', data);
+                });
+        });
+    });
+</script>
+
+<div class="container">
+    <div>
+        <h2 class="text-center " style="margin-top:10px">QUẢN LÝ ĐƠN HÀNG</h2>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mã ĐH</th>
+                    <th>Người mua</th>
+                    <th>Ngày mua</th>
+                    <th>Ngày giao</th>
+                    <th>Địa chỉ</th>
+                    <th>Điện thoại</th>
+                    <th>Trị giá</th>
+                    <th>Trạng thái giao</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.MaDonHang</td>
+                        <td class="text-center">@item.KHACHHANG.HoTen</td>
+                        <td class="text-center">@string.Format("{0:dd/MM/yyyy}", item.NgayDat)</td>
+                        <td class="text-center">@string.Format("{0:dd/MM/yyyy}", item.NgayGiao)</td>
+                        <td class="text-center">@item.KHACHHANG.DiaChiKH</td>
+                        <td class="text-center">@item.KHACHHANG.DienThoaiKH</td>
+                        <td class="text-center">@string.Format("{0:#,##0 đ}", item.TongTien)</td>
+                        <td class="text-center">
+                            @if (item.TinhTrangGiaoHang == true)
+                            {
+                                <a href="#" class="DaGiaoClick" data-id="@item.MaDonHang">
+                                    <img src="/images/Admin/Icons/icon_Hien.png" id="img_AnHien-@item.MaDonHang" class="status-icon" title="Đã giao" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="DaGiaoClick" data-id="@item.MaDonHang">
+                                    <img src="/images/Admin/Icons/icon_An.png" id="img_AnHien-@item.MaDonHang" class="status-icon" title="Chưa giao" />
+                                </a>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("OrderDetail", "Admin", new { id = item.MaDonHang })">
+                                <img src="~/images/Admin/Icons/icon_eye.png" class="detail-icon" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <div class="pagination-container text-center mt-4">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Order", new { page }))
+    </div>
+</div>

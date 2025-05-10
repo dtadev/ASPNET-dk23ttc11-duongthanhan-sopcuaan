@@ -1,0 +1,179 @@
+﻿@using Project.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Project.Models.NHACUNGCAP>
+
+@{
+    ViewBag.Title = "NhaCungCap";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Tiêu đề */
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* Nút thêm */
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+    /* Bảng thông tin */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #333333;
+            font-weight: 600;
+            color: white;
+        }
+
+        .table td {
+            color: #555;
+        }
+
+        .table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+    /* Hành động sửa/xóa */
+    .action-links a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: 500;
+        margin: 0 5px;
+        transition: color 0.3s;
+    }
+
+        .action-links a:hover {
+            color: #e74c3c;
+        }
+
+    /* Phân trang */
+    .MenuTrang {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+        .MenuTrang a {
+            color: #4CAF50;
+            margin: 0 5px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+            .MenuTrang a:hover {
+                color: #e74c3c;
+            }
+
+    /* Trạng thái */
+    .status-icon {
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+        .status-icon:hover {
+            transform: scale(1.2);
+        }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $(".DaGiaoClick").click(function () {
+            var _MaDH = $(this).attr("data-id");
+            $.post("/Admin/TrangThaiNCC", { "id": _MaDH },
+                function (data) {
+                    $('#img_AnHien-' + _MaDH).attr('src', data);
+                });
+        });
+    });
+</script>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="wrap">
+    <h2>QUẢN LÝ THÔNG TIN NHÀ CUNG CẤP</h2>
+    <a href="@Url.Action("ThemMoiNhaCungCap", "Admin")" class="button">THÊM NHÀ CUNG CẤP</a>
+    <table class="table">
+        <tr>
+            <th>Tên nhà cung cấp</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TenNCC)</td>
+                <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                <td>
+                    @if (item.TrangThai == true)
+                    {
+                        <a href="#" class="DaGiaoClick" data-id="@item.MaNCC">
+                            <img src="/images/Admin/Icons/icon_Hien.png" id="img_AnHien-@item.MaNCC" class="status-icon" title="Còn hàng" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="DaGiaoClick" data-id="@item.MaNCC">
+                            <img src="/images/Admin/Icons/icon_An.png" id="img_AnHien-@item.MaNCC" class="status-icon" title="Hết hàng" />
+                        </a>
+                    }
+                </td>
+                <td class="action-links">
+                    @Html.ActionLink("Sửa", "SuaNhaCungCap", new { id = item.MaNCC }) |
+                    @Html.ActionLink("Xóa", "XoaNhaCungCap", new { id = item.MaNCC })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="MenuTrang">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("NhaCungCap", new { page }))
+    </div>
+</div>

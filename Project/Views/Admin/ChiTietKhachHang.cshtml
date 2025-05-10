@@ -1,0 +1,91 @@
+﻿@model Project.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "ChiTietKhachHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Phong cách container chính */
+    .detail-container {
+        margin: 30px auto;
+        padding: 30px;
+        width: 80%;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+    }
+
+        /* Phong cách tiêu đề */
+        .detail-container h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+    /* Phong cách danh sách chi tiết */
+    .details-list dt {
+        font-weight: bold;
+        width: 200px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .details-list dd {
+        margin-left: 220px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Phong cách nút quay lại */
+    .back-button {
+        display: block;
+        width: fit-content;
+        margin: 20px auto 0;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .back-button:hover {
+            background-color: #ddd;
+            color:#000;
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="detail-container">
+    <h2>THÔNG TIN CHI TIẾT KHÁCH HÀNG</h2>
+
+    <dl class="details-list">
+        <dt>Tên tài khoản:</dt>
+        <dd>@Model.TaiKhoanKH</dd>
+
+        <dt>Họ tên:</dt>
+        <dd>@Model.HoTen</dd>
+
+        <dt>Email:</dt>
+        <dd>@Model.EmailKH</dd>
+
+        <dt>Địa chỉ khách hàng:</dt>
+        <dd>@Model.DiaChiKH</dd>
+
+        <dt>Số điện thoại:</dt>
+        <dd>@Model.DienThoaiKH</dd>
+
+        <dt>Ngày sinh:</dt>
+        <dd>@String.Format("{0:dd/MM/yyyy}", Model.NgaySinh)</dd>
+
+        <dt>Trạng thái:</dt>
+        <dd>@(Model.TrangThai == true ? "Hoạt động" : (Model.TrangThai == false ? "Đã khóa" : "Không xác định"))</dd>
+    </dl>
+
+    <a href="@Url.Action("KhachHang", "Admin")" class="back-button">Trở về trang khách hàng</a>
+</div>

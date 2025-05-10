@@ -1,0 +1,153 @@
+﻿@model Project.Models.LOAIGIAY
+
+@{
+    ViewBag.Title = "SuaLoaiGiay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .form-horizontal {
+        width: 100%;
+        max-width: 800px;
+        background-color: transparent;
+        padding: 20px 40px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .form-control {
+        width: 100%;
+/*        padding: 13px;*/
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+        }
+
+    .text-danger {
+        font-size: 14px;
+        color: #e74c3c;
+        margin-top: 5px;
+        font-weight: 500;
+    }
+
+    .btn-submit, .btn-back {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        min-width: 150px;
+        margin-right: 10px;
+    }
+
+        .btn-submit:hover, .btn-back:hover {
+            background-color: #45a049;
+        }
+
+    .btn-back {
+        background-color: #ccc;
+        color: #444;
+    }
+
+    .action-link {
+        color: #4CAF50;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        .action-link:hover {
+            color: #388E3C;
+        }
+
+    /* Chỉnh sửa để nút thêm và trở về cùng trên 1 hàng */
+    .btn-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="wrap">
+    <h2>SỬA THÔNG TIN LOẠI GIÀY</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaLoai)
+
+            <!-- Tên Loại Giày -->
+            <div class="form-group">
+                <label for="TenLoai">Tên loại giày</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenLoai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenLoai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Trạng Thái -->
+            <div class="form-group">
+                <label for="TrangThai">Trạng thái</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Giới Tính -->
+            <div class="form-group">
+                <label for="GioiTinh">Giới tính</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Nút Cập Nhật và Trở về cùng 1 hàng -->
+            <div class="btn-group">
+                <input type="submit" value="Cập nhật" class="btn-submit" />
+                <a href="@Url.Action("LoaiGiay", "Admin")" class="btn-back">Quay lại</a>
+            </div>
+        </div>
+    }
+</div>

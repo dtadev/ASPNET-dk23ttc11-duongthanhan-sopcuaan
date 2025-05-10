@@ -1,0 +1,144 @@
+﻿@model Project.Models.NHACUNGCAP
+
+@{
+    ViewBag.Title = "SuaNhaCungCap";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .form-horizontal {
+        width: 100%;
+        max-width: 1200px;
+        background-color: transparent;
+        padding: 20px 40px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 13px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+    .text-danger {
+        font-size: 14px;
+        color: #e74c3c;
+        margin-top: 5px;
+        font-weight: 500;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .btn-submit, .btn-back {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        text-align: center;
+        min-width: 150px;
+    }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+
+    .btn-back {
+        background-color: #ccc;
+        color: #444;
+    }
+
+        .btn-back:hover {
+            background-color: #bbb;
+            color: #333;
+        }
+</style>
+
+<div class="wrap">
+    <h2>SỬA THÔNG TIN NHÀ CUNG CẤP</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaNCC)
+
+            <div class="form-group">
+                <label for="TenNCC">Tên nhà cung cấp</label>
+                @Html.EditorFor(model => model.TenNCC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenNCC, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="DiaChi">Địa chỉ</label>
+                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="DienThoai">Số điện thoại</label>
+                @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="TrangThai">Trạng thái</label>
+                @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Cập nhật</button>
+                <a href="@Url.Action("NhaCungCap", "Admin")" class="btn-back">Trở về</a>
+            </div>
+        </div>
+    }
+</div>

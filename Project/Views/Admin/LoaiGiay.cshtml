@@ -1,0 +1,167 @@
+﻿@model IEnumerable<Project.Models.LOAIGIAY>
+
+@{
+    ViewBag.Title = "LoaiGiay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        text-align: center;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+    table {
+        width: 100%;
+        max-width: 1200px;
+        border-collapse: collapse;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    th {
+        background-color: #333333;
+        color: white;
+        font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    a.action-link {
+        color: #4CAF50;
+        font-weight: 600;
+        margin: 0 10px;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        a.action-link:hover {
+            color: #388E3C;
+        }
+
+    .status-icon {
+        width: 30px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+        .status-icon:hover {
+            transform: scale(1.1);
+        }
+</style>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $(".DaGiaoClick").click(function () {
+            var _MaDH = $(this).attr("data-id");
+            $.post("/Admin/TrangThaiLoai", { "id": _MaDH },
+                function (data) {
+                    $('#img_AnHien-' + _MaDH).attr('src', data);
+                });
+        });
+    });
+</script>
+<div class="wrap" style="padding-top:2%; padding-left:10%; padding-right:10%; padding-bottom:5%">
+    <h2 style="text-align: center; ">QUẢN LÝ THÔNG TIN LOẠI GIÀY</h2>
+    <a href="@Url.Action("ThemMoiLoaiGiay", "Admin")" class="button">THÊM LOẠI GIÀY</a>
+    <table class="table" ; border="1">
+        <tr>
+            <th>
+                Tên loại
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Giới tính
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLoai)
+                </td>
+                <td>
+                    @if (item.TrangThai == true)
+                    {
+                        <a href="#" class="DaGiaoClick" data-id="@item.MaLoai">
+                            <img src="/images/Admin/Icons/icon_Hien.png" id="img_AnHien-@item.MaLoai" title="Còn hàng" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="DaGiaoClick" data-id="@item.MaLoai">
+                            <img src="/images/Admin/Icons/icon_An.png" id="img_AnHien-@item.MaLoai" title="Hết hàng" />
+                        </a>
+                    }
+                </td>
+                <td>
+                    @if (item.GioiTinh == true)
+                    {
+                        <a>Nam</a>
+                    }
+                    else
+                    {
+                        <a>Nữ</a>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "SuaLoaiGiay", new { id = item.MaLoai }) |
+                    @Html.ActionLink("Xóa", "XoaLoaiGiay", new { id = item.MaLoai })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

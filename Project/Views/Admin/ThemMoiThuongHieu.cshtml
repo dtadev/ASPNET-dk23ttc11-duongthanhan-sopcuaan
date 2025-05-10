@@ -1,0 +1,140 @@
+﻿@model Project.Models.THUONGHIEU
+
+@{
+    ViewBag.Title = "ThemMoiThuongHieu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Tiêu đề */
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* Form */
+    .form-horizontal {
+        width: 100%;
+        max-width: 1200px;
+        background-color: transparent;
+        padding: 20px 40px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 13px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s;
+        padding-bottom: 5px;
+    }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+    .text-danger {
+        font-size: 14px;
+        color: #e74c3c;
+        margin-top: 5px;
+        font-weight: 500;
+    }
+
+    /* Nút */
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .btn-submit, .btn-back {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        text-align: center;
+        min-width: 150px;
+    }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+
+    .btn-back {
+        background-color: #ccc;
+        color: #444;
+    }
+
+        .btn-back:hover {
+            background-color: #bbb;
+            color: #333;
+        }
+
+    .form-group p {
+        font-weight: bold;
+    }
+
+        .form-group p span {
+            color: red;
+        }
+</style>
+
+<div class="wrap">
+    <h2>THÊM MỚI THƯƠNG HIỆU</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Tên Thương Hiệu -->
+            <div class="form-group">
+                <p>Tên thương hiệu <span>*</span></p>
+                @Html.EditorFor(model => model.TenThuongHieu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenThuongHieu, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Nút Thêm Mới và Trở Về -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Thêm mới</button>
+                <a href="@Url.Action("ThuongHieu", "Admin")" class="btn-back">Trở về trang thương hiệu</a>
+            </div>
+        </div>
+    }
+</div>

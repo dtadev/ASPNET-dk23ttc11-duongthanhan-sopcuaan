@@ -1,0 +1,197 @@
+﻿@model Project.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "TRANG CÁ NHÂN";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+        background-color: #f7f7f7;
+    }
+
+    .login .wrap {
+        width: 90%;
+        max-width: 1200px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 20px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .login-title h1.title {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .section-title h3 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        color: #555;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: space-between;
+    }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        form span {
+            color: #f00;
+            margin-left: 5px;
+        }
+
+
+        form input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+            form input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+    .btn-resetpass{
+         background-color: orangered;
+         color: #fff;
+         border: none;
+         padding: 10px 20px;
+         font-size: 1em;
+         cursor: pointer;
+         border-radius: 8px;
+         transition: background-color 0.3s;
+    }
+        .btn-resetpass a {
+            color: #fff
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 5px;
+        font-size: 0.9em;
+        color: #333;
+
+    input.form-control text-box single-line {
+        padding: 10px 15px;
+        width: 97%;
+        color: #000;
+        font-size: 0.8125em;
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        outline: none;
+        display: block;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    input[type="datetime"] {
+        padding: 10px 15px;
+        width: 97%;
+        color: #000;
+        font-size: 0.8125em;
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        outline: none;
+        display: block;
+        font-family: 'Open Sans', sans-serif;
+
+    }
+</style>
+
+<div class="login">
+    <div class="wrap">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="login-title">
+            <h1 class="title">HỒ SƠ CỦA TÔI</h1>
+            <p>
+                <label>Chào: @Model.HoTen</label>
+
+            </p>
+        </div>
+            <div class="section-title">
+                <h3>THÔNG TIN TÀI KHOẢN</h3>
+    
+                <p>
+                    <label>Tên tài khoản<span>*</span></label>
+                    <div>@Model.TaiKhoanKH</div>
+                </p>
+
+                <p>
+                    <label>Mật khẩu<span>*</span></label>
+                    <button class="btn-resetpass">
+                        @Html.ActionLink("ĐỔI MẬT KHẨU", "DoiMatKhau", "User")
+
+                    </button>
+                </p>
+                <p>
+                    <label>Thay đổi tên của bạn?</label>
+                    @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                </p>
+            </div>
+            <div class="section-title">
+                <h3>THÔNG TIN BẢO MẬT</h3>
+                <p>
+                    <label>Email<span>*</span></label>
+                    <div>@Model.EmailKH</div>
+                </p>
+                <p>
+                    <label>Địa chỉ<span>*</span></label>
+                    @Html.EditorFor(model => model.DiaChiKH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiaChiKH, "", new { @class = "text-danger" })
+                </p>
+                <p>
+                    <label>Số điện thoại<span>*</span></label>
+                    @Html.EditorFor(model => model.DienThoaiKH, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DienThoaiKH, "", new { @class = "text-danger" })
+                </p>
+                <p>
+                    <label>Ngày sinh</label>
+                    @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                </p>
+            </div>
+            <p>
+                <input type="submit" value="Lưu">
+            </p>
+        }
+    </div>
+</div>
+
+

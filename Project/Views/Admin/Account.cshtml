@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Phong cách container chính */
+    .account-container {
+        margin: 40px auto;
+        padding: 40px;
+        width: 80%;
+        max-width: 700px;
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+        .account-container h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+    /* Phong cách bảng */
+    .account-table {
+        width: 100%;
+        margin-bottom: 30px;
+        border-collapse: separate;
+        border-spacing: 0 15px;
+    }
+
+        .account-table td {
+            padding: 15px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .account-table input[type="text"],
+        .account-table input[type="email"],
+        .account-table input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+    /* Phong cách hình đại diện */
+    .avatar-container {
+        margin-bottom: 30px;
+    }
+
+        .avatar-container img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid #c7b89e;
+            margin-bottom: 15px;
+        }
+
+        .avatar-container input[type="file"] {
+            margin-top: 10px;
+        }
+
+    /* Phong cách nút */
+    .action-buttons {
+        text-align: center;
+    }
+
+        .action-buttons input[type="submit"],
+        .action-buttons input[type="reset"],
+        .action-buttons button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .action-buttons input[type="submit"]:hover,
+            .action-buttons input[type="reset"]:hover,
+            .action-buttons button:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+
+    /* Phong cách nút liên kết */
+    .link-buttons {
+        margin-bottom: 30px;
+    }
+
+        .link-buttons button {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .link-buttons button:hover {
+                background-color: #5a6268;
+                transform: scale(1.05);
+            }
+</style>
+
+@using (Html.BeginForm("Account", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="account-container">
+        <h2>THÔNG TIN NHÂN VIÊN</h2>
+
+        <div class="link-buttons">
+            <button type="button" onclick="location.href='/Admin/ChangePassword'">Đổi mật khẩu</button>
+            <button type="button" onclick="location.href='/Admin/Logout'">Đăng xuất</button>
+        </div>
+
+        <div class="avatar-container">
+            <img id="img_HinhDD" src="@Model.Avatar" alt="Avatar" />
+            <input type="file" id="FileUpload" name="FileUpload" />
+        </div>
+
+        <table class="account-table">
+            <tr>
+                <td>Tên Đăng nhập:</td>
+                <td>
+                    <input type="text" id="txt_Username" name="txt_Username" disabled value="@Model.TaiKhoanQL" />
+                </td>
+            </tr>
+            <tr>
+                <td>Mật khẩu:</td>
+                <td>
+                    <input type="password" id="txt_Password" name="txt_Password" disabled value="@Model.MatKhau" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="email" id="txt_Email" name="txt_Email" required value="@Model.EmailQL" />
+                </td>
+            </tr>
+            <tr>
+                <td>Họ tên:</td>
+                <td>
+                    <input type="text" id="txt_HoTen" name="txt_HoTen" required maxlength="50" value="@Model.HoTen" />
+                </td>
+            </tr>
+            <tr>
+                <td>Điện thoại:</td>
+                <td>
+                    <input type="text" id="txt_DienThoai" name="txt_DienThoai" maxlength="10" required value="@Model.DienThoaiQL" />
+                </td>
+            </tr>
+        </table>
+
+        <div class="action-buttons">
+            <input type="reset" value="Nhập lại" />
+            <input style="background-color: #11a805; color: #000" type="submit" value="Xác nhận" />
+            <button style="background-color: #ddd; color: #000" type="button" onclick="location.href='/Admin'">Trang chủ</button>
+        </div>
+    </div>
+}

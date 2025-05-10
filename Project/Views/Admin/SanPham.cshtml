@@ -1,0 +1,181 @@
+﻿@using Project.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Project.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<style>
+    .wrap {
+        padding: 2% 10%;
+    }
+
+    .header-title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .add-button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .product-table th, .product-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-table th {
+            background-color: #333333;
+            font-weight: bold;
+            color: #fff;
+        }
+
+
+    .product-stus {
+        width: 20px;
+    }
+    .product-table img {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .action-links a {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .pagination {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+
+    .back-button {
+        background-color: #ddd;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 12px;
+        text-align: center;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .back-button-sua:hover {
+        background-color: #faf260;
+        color: #000;
+    }
+
+    .back-button-xoa:hover {
+        background-color: #ff7c7c;
+    }
+
+    .back-button-chitiet:hover {
+        background-color: #9bc7f7;
+    }
+    .detail-icon{
+        max-width: 30px;
+    }
+
+</style>
+
+<div class="wrap">
+    <h2 class="header-title">QUẢN LÝ THÔNG TIN SẢN PHẨM</h2>
+    <a href="@Url.Action("ThemMoiSanPham", "Admin")" class="add-button">THÊM SẢN PHẨM</a>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Tên Sản Phẩm</th>
+                @*<th>Size</th>*@
+                <th>Ảnh Bìa</th>
+                <th>Giá Bán</th>
+                @*<th>Thương Hiệu</th>*@
+                @*<th>Trạng Thái</th>*@
+                @*<th>Nhà Cung Cấp</th>*@
+                <th>Loại Giày</th>
+                @*<th>Bảo hành</th>*@
+                @*<th>Ngày Cập Nhật</th>*@
+                <th>SL.Tồn</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TenGiay</td>
+                    @*<td>@item.Size</td>*@
+                    <td><img src="@Url.Content("~/images/" + item.AnhBia)" alt="Ảnh Bìa" /></td>
+                    <td>@String.Format("{0:0,0} VNĐ", item.GiaBan)</td>
+                    @*<td>@item.THUONGHIEU.TenThuongHieu</td>
+                    <td class="product-stus">
+                        @if (item.TrangThai == true)
+                        {
+                            <img src="/images/Admin/Icons/icon_Hien.png" title="Còn hàng" />
+                        }
+                        else
+                        {
+                            <img src="/images/Admin/Icons/icon_An.png" title="Hết hàng" />
+                        }
+                    </td>
+                    <td>@item.NHACUNGCAP.TenNCC</td>*@
+                    <td>@item.LOAIGIAY.TenLoai</td>
+                    @*<td>@item.ThoiGianBaoHanh</td>*@
+                    @*<td>@item.NgayCapNhat</td>*@
+                    <td>@item.SoLuongTon</td>
+                    <td class="action-links">
+                        @*@Html.ActionLink("Sửa", "SuaSanPham", new { id = item.MaGiay }) |
+        @Html.ActionLink("Chi tiết", "ChiTietSanPham", new { id = item.MaGiay }) |
+        @Html.ActionLink("Xóa", "XoaSanPham", new { id = item.MaGiay })*@
+
+                        @*<a href="@Url.Action("SuaSanPham", "Admin", new { id = item.MaGiay })" class="back-button back-button-sua">SỬA</a>
+                        <a href="@Url.Action("ChiTietSanPham", "Admin", new { id = item.MaGiay })" class="back-button back-button-chitiet">CHI TIẾT</a>
+                        <a href="@Url.Action("XoaSanPham", "Admin", new { id = item.MaGiay })" class="back-button back-button-xoa">XÓA</a>*@
+
+
+                        <a href="@Url.Action("SuaSanPham", "Admin", new { id = item.MaGiay })">
+                            <img src="~/images/Admin/Icons/edit-icon.png" class="detail-icon" />
+                        </a>
+
+                        <a href="@Url.Action("ChiTietSanPham", "Admin", new { id = item.MaGiay })">
+                            <img src="~/images/Admin/Icons/details-icon.png" class="detail-icon" />
+                        </a>
+
+                        <a href="@Url.Action("XoaSanPham", "Admin", new { id = item.MaGiay })">
+                            <img src="~/images/Admin/Icons/removebg-preview.png" class="detail-icon" />
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pagination">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page }))
+    </div>
+</div>

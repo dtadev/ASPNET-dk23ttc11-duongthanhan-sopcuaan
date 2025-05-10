@@ -1,0 +1,179 @@
+﻿@model Project.Models.YKIENKHACHHANG
+
+@{
+    ViewBag.Title = "GioiThieu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+
+    .gioithieu-container {
+        display: flow;
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: #fefefe;
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+        .gioithieu-container h1 {
+            font-size: 3em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gioithieu-container hr {
+            border: none;
+            height: 3px;
+            background-color: #4CAF50;
+            width: 100px;
+            margin: 0 auto 40px auto;
+            border-radius: 20px;
+        }
+
+    .gioithieu-content {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+
+        .gioithieu-content .column {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+            .gioithieu-content .column:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+            }
+
+        .gioithieu-content p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+    .highlight {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+
+    .contact-feedback {
+        display: flex;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+        .contact-feedback .contact-info,
+        .contact-feedback .feedback-form {
+            flex: 1;
+            background-color: #f9f9f9;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+    .contact-info h2,
+    .feedback-form h2 {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .contact-info p,
+    .feedback-form label {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .feedback-form input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 15px 30px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+    }
+
+        .feedback-form input[type="submit"]:hover {
+            background-color: #388e3c;
+        }
+
+    .feedback-form input[type="text"],
+    .feedback-form textarea {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 1em;
+    }
+
+ 
+</style>
+
+<div class="gioithieu-container">
+    <h1>Sốp Giày của An</h1>
+    <hr />
+    @*pHẦN GIỚI THIỆU*@
+<div class="row" style="display: flex; flex-direction: row;">
+    <div class="column">
+        <p>👟 <span class="highlight">Về Chúng Tôi:</span> Chúng tôi không chỉ là một cửa hàng giày, mà là nơi hội tụ của những người yêu thích phong cách và sự sáng tạo. Cam kết mang đến những đôi giày không chỉ đẹp mà còn phản ánh đúng cá tính của bạn.</p>
+        <p>🌟 <span class="highlight">Sự Đa Dạng:</span> Mỗi người có một đôi chân riêng biệt. Vì vậy, chúng tôi tự hào mang đến bộ sưu tập giày phong phú về kiểu dáng, màu sắc và chất liệu để phù hợp với từng phong cách khác nhau.</p>
+        <p>🌍 <span class="highlight">Khám Phá Thế Giới Giày:</span> Hãy khám phá những đôi giày phản ánh phong cách và cá tính riêng của bạn tại Sốp Giày của An.</p>
+    </div>
+    <div class="column">
+        <p>🚚 <span class="highlight">Giao Hàng Toàn Quốc:</span> Dịch vụ giao hàng của chúng tôi nhanh chóng và an toàn, đảm bảo bạn nhận được sản phẩm mà không phải chờ đợi lâu.</p>
+        <p>🤝 <span class="highlight">Cam Kết Hỗ Trợ Khách Hàng:</span> Chúng tôi luôn đặt khách hàng lên hàng đầu với đội ngũ hỗ trợ tận tâm và chu đáo.</p>
+        <p>🌈 <span class="highlight">Chất Lượng Và Độ Bền:</span> Sản phẩm của chúng tôi được chọn lọc kỹ lưỡng, đảm bảo chất lượng và độ bền cao, phù hợp với xu hướng thời trang mới nhất.</p>
+    </div>
+</div>
+
+
+    @*PHẦN 2THÔNG TIN LIÊN HỆ*@
+    <div class="contact-feedback">
+        <div class="contact-info">
+            <h2>Thông Tin Liên Hệ</h2>
+            <p><strong>GPKD số:</strong> 100009312</p>
+            <p><strong>Email:</strong> admin@shopgiay.com</p>
+            <p><strong>Số điện thoại:</strong> +84 123 456 789</p>
+            <p><strong>Địa chỉ:</strong> 123 Đường ABC, Huyện Bến Lức, Tỉnh Long An, Việt Nam</p>
+        </div>
+        <div class="feedback-form">
+            <h2>Đóng Góp Ý Kiến</h2>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <label>Email</label>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                <label>Họ tên</label>
+                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+
+                <label>Nội dung</label>
+                @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="GỬI" class="btn btn-default" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

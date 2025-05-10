@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- STATISTIC -->
+<section class="statistic">
+    <h1 style="text-align:center">TRANG QUẢN TRỊ VIÊN SỐP CỦA AN</h1>
+    <div class="statistic__content">
+        <div class="title-qtv">
+            <p><i class="fa-solid fa-user-tie"></i> Danh Mục Quản Trị</p>
+        </div>
+        <div class="statistic__grid">
+            <a href="@Url.Action("SanPham")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">DANH SÁCH SẢN PHẨM</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-account"></i>
+                    </div>
+                </div>
+            </a>
+            <a href="@Url.Action("Order")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">QUẢN LÝ ĐƠN HÀNG</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-comment"></i>
+                    </div>
+                </div>
+            </a>
+            <a href="@Url.Action("Ykienkhachhang")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">XỬ LÝ Ý KIẾN KHÁCH HÀNG</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-comment"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="statistic__grid">
+            <a href="@Url.Action("ListAdmin")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">DANH SÁCH QUẢN TRỊ VIÊN</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-comment"></i>
+                    </div>
+                </div>
+            </a>
+            <a href="@Url.Action("KhachHang")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">DANH SÁCH KHÁCH HÀNG</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-help"></i>
+                    </div>
+                </div>
+            </a>
+            <a href="@Url.Action("Account")" class="statistic__link">
+                <div class="statistic__info">
+                    <span class="statistic__desc">QUẢN LÝ TÀI KHOẢN</span>
+                    <div class="statistic__icon">
+                        <i class="zmdi zmdi-help"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="statistic__stats">
+        <div class="title-qtv">
+            <p><i class="fa-solid fa-table-columns"></i> Danh Mục Thống Kê</p>
+        </div>
+        <div class="statistic__grid">
+            <div class="statistic__item">
+                <h2 class="statistic__number">@ViewBag.TotalUser</h2>
+                <span class="statistic__desc">Thành viên</span>
+                <div class="statistic__icon">
+                    <i class="zmdi zmdi-account-o"></i>
+                </div>
+            </div>
+            <div class="statistic__item">
+                <h2 class="statistic__number">@ViewBag.Total</h2>
+                <span class="statistic__desc">Sản phẩm bán</span>
+                <div class="statistic__icon">
+                    <i class="zmdi zmdi-shopping-cart"></i>
+                </div>
+            </div>
+            <div class="statistic__item">
+                <h2 class="statistic__number">@ViewBag.TotalDeli</h2>
+                <span class="statistic__desc">Đơn giao</span>
+                <div class="statistic__icon">
+                    <i class="zmdi zmdi-truck"></i>
+                </div>
+            </div>
+            <div class="statistic__item">
+                <h2 class="statistic__number">@ViewBag.TotalEarnings</h2>
+                <span class="statistic__desc">Doanh thu</span>
+                <div class="statistic__icon">
+                    <i class="zmdi zmdi-money"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END STATISTIC -->
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    .statistic__content, .statistic__stats {
+        padding: 20px;
+        width: 100%;
+    }
+
+
+    .statistic__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .statistic__link {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        padding: 30px;
+        text-align: center;
+        color: inherit;
+    }
+
+        .statistic__link:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+        }
+
+    .statistic__info {
+        position: relative;
+    }
+
+    .statistic__desc {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .statistic__icon {
+        font-size: 40px;
+        color: #4caf50;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.2;
+        transition: all 0.3s ease;
+    }
+
+    .statistic__link:hover .statistic__icon {
+        opacity: 0.4;
+    }
+
+
+    .statistic__item {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 30px;
+        transition: all 0.3s ease;
+    }
+
+        .statistic__item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+        }
+
+    .statistic__number {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .statistic__desc {
+        font-size: 18px;
+        color: #555;
+    }
+
+    .statistic__icon {
+        font-size: 50px;
+        color: #4caf50;
+        opacity: 0.15;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .max-w-7xl {
+        max-width: 1120px;
+        margin: 0 auto;
+    }
+
+    .title-qtv{
+        font-weight: bold;
+
+    }
+   
+</style>

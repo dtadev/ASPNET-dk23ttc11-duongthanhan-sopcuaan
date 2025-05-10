@@ -1,0 +1,110 @@
+﻿@model Project.Models.LOAIGIAY
+
+@{
+    ViewBag.Title = "XoaLoaiGiay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .wrap {
+        padding: 2% 5%;
+        background-color: #f4f5f7;
+        border-radius: 8px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    dl.dl-horizontal {
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+        border-radius: 8px;
+/*        background-color: #fff;*/
+        margin-bottom: 20px;
+    }
+
+    dt {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    dd {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .form-actions {
+        text-align: center;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+        .form-actions input[type="submit"] {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 16px;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .form-actions input[type="submit"]:hover {
+                background-color: #c0392b;
+            }
+
+    .action-link {
+        color: #4CAF50;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 16px;
+        padding-top: 10px;
+    }
+
+        .action-link:hover {
+            color: #388E3C;
+        }
+</style>
+
+<div class="wrap">
+    <h2>XÁC NHẬN XÓA THÔNG TIN LOẠI GIÀY</h2>
+    <br />
+    <h3>Bạn quyết định xóa loại giày này?</h3>
+    <br />
+    <dl class="dl-horizontal">
+        <dt>Tên loại giày</dt>
+        <dd>@Html.DisplayFor(model => model.TenLoai)</dd>
+
+        <dt>Trạng thái</dt>
+        <dd>@Html.DisplayFor(model => model.TrangThai)</dd>
+
+        <dt>Giới tính</dt>
+        <dd>@Html.DisplayFor(model => model.GioiTinh)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input type="submit" value="Xóa" />
+            <a href="@Url.Action("LoaiGiay", "Admin")" class="action-link">Quay lại</a>
+        </div>
+    }
+</div>

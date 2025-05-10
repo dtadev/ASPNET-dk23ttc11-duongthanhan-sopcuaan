@@ -1,0 +1,185 @@
+﻿
+@using Project.Models
+
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        max-width: 1200px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-items {
+        flex: 2;
+        padding: 30px;
+    }
+
+    .summary {
+        flex: 1;
+        background-color: #f0f0f0;
+        padding: 30px;
+        border-left: 1px solid #ddd;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
+
+        .cart-item img {
+            width: 80px;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+    .cart-item-info {
+        flex: 1;
+    }
+
+    .cart-item-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+    }
+
+        .quantity-control button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            width: 35px;
+            height: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+            .quantity-control button:hover {
+                background-color: #333;
+            }
+
+        .quantity-control input {
+            width: 50px;
+            height: 35px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+    .checkout-btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .checkout-btn:hover {
+            background-color: #333;
+        }
+
+    h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .summary h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .summary-item {
+        margin-bottom: 20px;
+    }
+
+        .summary-item input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .checkout-btn a{
+        color: #ffffff;
+    }
+</style>
+
+<div class="container">
+    <div class="cart-items">
+        <h2>Thông tin giỏ hàng</h2>
+        @foreach (var item in Model)
+        {
+            <div class="cart-item">
+                <img src="~/images/@item.sAnhBia" alt="@item.sTenGiay" />
+                <div class="cart-item-info">
+                    <div><strong>@item.sTenGiay</strong></div>
+                    <div>Size: @item.iSize</div>
+                </div>
+                <div class="cart-item-actions">
+                    <div class="quantity-control">
+                        <button>-</button>
+                        <input type="number" min="1" value="@item.iSoLuong" />
+                        <button>+</button>
+                    </div>
+                    <div style="width: 100px; text-align: right; font-weight: bold;">@String.Format("{0:0,0}", item.dGiaBan)</div>
+                    <button style="background: none; border: none; color: #888; font-weight: bold; cursor: pointer; margin-left: 15px;">
+                        @Html.ActionLink("X", "XoaGioHang", new { @iMaSp = item.iMaGiay })
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="summary">
+        <h3>THANH TOÁN</h3>
+        <div class="summary-item">
+         <strong>   SHIPPING: MIỄN PHÍ</strong>
+        </div>
+        <div class="summary-item">
+            GIVE CODE:
+            <input type="text" placeholder="Enter your code" />
+        </div>
+        <div class="summary-item">
+            <strong>TOTAL PRICE: @String.Format("{0:0,0}", @ViewBag.TongTien) VND</strong>
+        </div>
+        <button class="checkout-btn">
+            @Html.ActionLink("ĐẶT HÀNG", "DatHang", "GioHang")
+
+        </button>
+    </div>
+</div>
